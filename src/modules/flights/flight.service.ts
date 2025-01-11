@@ -4,14 +4,14 @@ import {
 
 import { EnvConfig, IEnvConfig } from "@/constants/config";
 import { SearchRoundFlightDTO } from "./dto/searchFlight.dto";
-import { SearchFlightAPIResponse, RoundTripItineraryArray } from "./flight.types";
-import { mapSearchFlightDTOtoParams, mapSearchFlightAPIResponsetoRoundTripResponseData } from "./flight.serializer";
+import { SearchFlightAPIResponse, RoundTripItineraryArray, BasicResponse, FlightLocations, FlightLocationAPIResponseData } from "./flight.types";
+import { mapSearchFlightDTOtoParams, mapSearchFlightAPIResponsetoRoundTripResponseData, mapFlightLocations, mapGetFlightLocationDTOtoParams } from "./flight.serializer";
 import { AxiosResponse } from "axios";
 import { CommonResponse } from "@/constants/response";
 import axios from 'axios';
 import { EnumSearchFlightContextStatus, EnumSearchFlightOrderBy, EnumSortDirection } from "@/constants/flight";
-import { error } from "console";
 import { calculateNumOfDays, validateStartDateEqualOrMoreThanCurrentDate, validateStartDateLessThanEndDate } from "@/helpers/days";
+import { GetFlightLocationDTO } from "./dto/flightLocation.dto copy";
 
 @Injectable()
 export class FlightService {
@@ -49,7 +49,7 @@ export class FlightService {
             const discountPercentage = this.checkDiscountPercentage(startDate, endDate);
 
             //call for the round trip API to get the results, however it might take a while for the results to return hence returning incomplete status
-            const response: AxiosResponse<CommonResponse<SearchFlightAPIResponse>> = await axios.get(
+            const response: AxiosResponse<BasicResponse<SearchFlightAPIResponse>> = await axios.get(
                 `https://${baseUrl}/flights/search-roundtrip`, {
                 headers: this.rapidAPIheaders.headers,
                 params: body,
@@ -70,7 +70,7 @@ export class FlightService {
 
             //retry the api call and update current response
             let currentNoOfCalls = 0;
-            let currentResponse: AxiosResponse<CommonResponse<SearchFlightAPIResponse>> = response;
+            let currentResponse: AxiosResponse<BasicResponse<SearchFlightAPIResponse>> = response;
 
             if (currentResponse.data.data.context.sessionId === "") {
                 throw new Error("Session id for Rapid API Search incompleted");
@@ -121,6 +121,31 @@ export class FlightService {
             throw error;
         }
 
+    }
+
+    async getFlightLocations(data: GetFlightLocationDTO): Promise<FlightLocations> {
+        try {
+
+            const baseUrl = this.config.rapidAPIBaseURL;
+            //map the dto to the actual params used by the rapid api
+            const params = mapGetFlightLocationDTOtoParams(data);
+            //call the auto complete api to get the sky id code for destination and origin
+            this.logger.log(`Get Flights API: Trigger Rapid API Autocomplete`);
+            const response: AxiosResponse<BasicResponse<FlightLocationAPIResponseData>> = await axios.get(
+                `https://${baseUrl}/flights/auto-complete`, {
+                headers: this.rapidAPIheaders.headers,
+                params: params,
+            });
+            this.logger.log(`Get Flights API: Successfully receive Rapid API Autocomplete response`);
+            const respData = response.data.data;
+            //map raw response to simplified response
+            const locations = mapFlightLocations(respData);
+            return locations;
+
+        } catch (error) {
+            this.logger.error(`Get Flights API API: Error occured ${error}`);
+            throw error;
+        }
     }
 
     //the current rapid api does not support ordering, hence sort the simplified results

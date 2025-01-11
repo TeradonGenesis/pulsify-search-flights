@@ -21,12 +21,37 @@ async function bootstrap() {
   //set up the swagger configs
   const swaggerConfig = new DocumentBuilder()
     .setTitle("Search flights api")
-    .setDescription("Search flights API using SkyScanner Rapid API")
+    .setDescription("Search flights API using SkyScanner Rapid API. Click the Authorize button and enter your API key")
     .setVersion("1.0")
+    .addApiKey({
+      type: 'apiKey',
+      name: 'x-api-key',
+      in: 'header',
+      description: 'Enter your API key here'
+    }, 'x-api-key')
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup(
+    'api',
+    app,
+    document,
+    {
+      swaggerOptions: {
+        securityDefinitions: {
+          'x-api-key': {
+            type: 'apiKey',
+            in: 'header',
+            name: 'x-api-key'
+          }
+        },
+        security: [
+          {
+            'x-api-key': [],
+          },
+        ],
+      }
+    });
 
   await app.listen(process.env.PORT ?? 3000);
 

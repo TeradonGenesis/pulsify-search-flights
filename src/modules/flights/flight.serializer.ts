@@ -1,5 +1,6 @@
-import { SearchFlightAPIParams, SearchFlightAPIResponse, SearchFlightResponseData, RoundTripItinerary, RoundTripItineraryArray } from "./flight.types"
+import { SearchFlightAPIParams, SearchFlightAPIResponse, SearchFlightResponseData, RoundTripItinerary, RoundTripItineraryArray, FlightLocationAPIResponseData, FlightLocation, FlightLocations, FlightLocationAPIParams } from "./flight.types"
 import { SearchRoundFlightDTO } from "./dto/searchFlight.dto"
+import { GetFlightLocationDTO } from "./dto/flightLocation.dto copy"
 
 export const mapSearchFlightDTOtoParams = (data: SearchRoundFlightDTO): SearchFlightAPIParams => {
 	return {
@@ -102,4 +103,29 @@ export const mapSearchFlightAPIResponsetoRoundTripResponseData = (data: SearchFl
 	}
 
 	return respDatas
+}
+
+export const mapFlightLocations = (data: FlightLocationAPIResponseData): FlightLocations => {
+	let flightLocations: FlightLocations = [];
+
+	if (data.length > 0) {
+
+		for (let i = 0; i < data.length; i++) {
+			const location = data[i];
+			const flightLocation: FlightLocation = {
+				city: location.presentation.title,
+				country: location.presentation.subtitle,
+				location_id: location.presentation.skyId,
+			};
+			flightLocations.push(flightLocation);
+		}
+
+	}
+	return flightLocations;
+}
+
+export const mapGetFlightLocationDTOtoParams = (data: GetFlightLocationDTO): FlightLocationAPIParams => {
+	return {
+		query: data.query,
+	}
 }

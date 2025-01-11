@@ -7,14 +7,14 @@ export class SearchRoundFlightDTO {
 
     @ApiProperty({
         required: true,
-        description: 'The departure location'
+        description: 'The departure location. Use the location id from the get flight locations response'
     })
     @IsString()
     origin: string;
 
     @ApiProperty({
         required: true,
-        description: 'The arrival location'
+        description: 'The arrival location. Use the location id from the get flight locations response'
     })
     @IsString()
     destination: string;

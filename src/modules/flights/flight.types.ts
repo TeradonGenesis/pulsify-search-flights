@@ -1,3 +1,9 @@
+export type BasicResponse<T> = {
+	data: T;
+	status: boolean;
+	message: string;
+}
+
 export type SearchFlightAPIParams = {
 	fromEntityId: string;
 	toEntityId: string;
@@ -253,3 +259,25 @@ export type RoundTripItinerary = {
 };
 
 export type RoundTripItineraryArray = RoundTripItinerary[];
+
+export type FlightLocationAPIParams = {
+	query: string;
+}
+
+export type FlightLocationAPIPresentation = {
+	presentation: {
+		title: string;
+		subtitle: string;
+		skyId: string;
+	};
+}
+
+export type FlightLocationAPIResponseData = FlightLocationAPIPresentation[];
+
+export type FlightLocation = {
+	city: string;
+	country: string;
+	location_id: string;
+}
+
+export type FlightLocations = FlightLocation[];

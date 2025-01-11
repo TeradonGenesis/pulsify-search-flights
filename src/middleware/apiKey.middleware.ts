@@ -9,8 +9,8 @@ import { HttpStatus } from "@nestjs/common";
 export class ApiKeyMiddleware implements NestMiddleware {
     use(req: Request, res: responseEncoding, next: NextFunction) {
         const apiKey = req.headers['x-api-key'];
-
         const config = EnvConfig;
+
         if (!apiKey || apiKey !== config.apiKey) {
             throw new HttpException({
                 code: HttpStatus.UNAUTHORIZED,

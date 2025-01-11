@@ -32,27 +32,15 @@ NestJS API to search for flights using Rapid API
 $ yarn install
 ```
 
-## Compile and run the project
+## Running the server through docker
+1. Setup your credentials in docker-compose.yml
+RAPID_API_KEY=
+API_KEY=
+
+2. Run the below commands and the server will run in localhost:3000
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ yarn install -g mau
-$ mau deploy
+$ docker-compose up --build
 ```
 
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
