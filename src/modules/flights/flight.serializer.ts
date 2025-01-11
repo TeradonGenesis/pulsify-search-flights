@@ -1,6 +1,6 @@
 import { SearchFlightAPIParams, SearchFlightAPIResponse, SearchFlightResponseData, RoundTripItinerary, RoundTripItineraryArray, FlightLocationAPIResponseData, FlightLocation, FlightLocations, FlightLocationAPIParams } from "./flight.types"
 import { SearchRoundFlightDTO } from "./dto/searchFlight.dto"
-import { GetFlightLocationDTO } from "./dto/flightLocation.dto copy"
+import { GetFlightLocationDTO } from "./dto/flightLocation.dto"
 
 export const mapSearchFlightDTOtoParams = (data: SearchRoundFlightDTO): SearchFlightAPIParams => {
 	return {

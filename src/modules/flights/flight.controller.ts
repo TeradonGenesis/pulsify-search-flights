@@ -5,7 +5,7 @@ import { SearchRoundFlightDTO } from "./dto/searchFlight.dto";
 import { CommonResponse } from "@/constants/response";
 import { ApiTags, ApiOperation, ApiResponse, ApiSecurity } from '@nestjs/swagger';
 import axios from "axios";
-import { GetFlightLocationDTO } from "./dto/flightLocation.dto copy";
+import { GetFlightLocationDTO } from "./dto/flightLocation.dto";
 
 @ApiTags('Flights API')
 @Controller('/v1/flights')

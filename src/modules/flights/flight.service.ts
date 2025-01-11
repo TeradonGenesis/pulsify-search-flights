@@ -11,7 +11,7 @@ import { CommonResponse } from "@/constants/response";
 import axios from 'axios';
 import { EnumSearchFlightContextStatus, EnumSearchFlightOrderBy, EnumSortDirection } from "@/constants/flight";
 import { calculateNumOfDays, validateStartDateEqualOrMoreThanCurrentDate, validateStartDateLessThanEndDate } from "@/helpers/days";
-import { GetFlightLocationDTO } from "./dto/flightLocation.dto copy";
+import { GetFlightLocationDTO } from "./dto/flightLocation.dto";
 
 @Injectable()
 export class FlightService {
