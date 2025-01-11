@@ -46,10 +46,12 @@ $ yarn start
 
 ## Running the server through docker
 1. Setup your credentials in docker-compose.yml
+
 RAPID_API_KEY=
+
 API_KEY=
 
-2. Run the below commands and the server will run in localhost:3000
+3. Run the below commands and the server will run in localhost:3000
 
 ```bash
 $ docker-compose up --build
