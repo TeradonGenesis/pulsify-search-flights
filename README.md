@@ -73,6 +73,10 @@ Explanation
 
 6. The retry mechanism ensures that in the event the search results is taking too long to return by the SkyScanner API, the results will still be retrieved in the subsequent call. The delay between each API call (intervals) ensures that we are not bombarding or DDOS the SkyScanner API and possible getting our access locked. These control mechanisms can be configured from the .env and is customizable depending on the needs
 
+7. To search by by date range for this /v1/flights/search/roundtrip API. The format for the date is YYYY-MM-DD.
+
+8. For this /v1/flights/search/roundtrip API, to order by cheapest to most expensive, the parameters to set are order_by=price and sort_by=asc. To order by most expensive to cheapest, the parameters to set are order_by=price and sort_by=desc.
+
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
