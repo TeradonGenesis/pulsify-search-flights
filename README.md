@@ -26,10 +26,20 @@
 
 NestJS API to search for flights using Rapid API
 
-## Project setup
-
+## Running the server locally
+1. Install the dependencies
 ```bash
 $ yarn install
+```
+
+2. Copy the .env.sample to .env. Then setup your credentials
+RAPID_API_KEY=
+API_KEY=
+
+3. Build the app and start the app locally
+```bash
+$ yarn build
+$ yarn start
 ```
 
 ## Running the server through docker
