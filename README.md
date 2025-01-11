@@ -33,10 +33,12 @@ $ yarn install
 ```
 
 2. Copy the .env.sample to .env. Then setup your credentials
+
 RAPID_API_KEY=
+
 API_KEY=
 
-3. Build the app and start the app locally
+4. Build the app and start the app locally
 ```bash
 $ yarn build
 $ yarn start
