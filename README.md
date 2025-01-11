@@ -33,10 +33,11 @@ $ yarn install
 ```
 
 2. Copy the .env.sample to .env. Then setup your credentials
-
+   
+```bash
 RAPID_API_KEY=
-
 API_KEY=
+```
 
 4. Build the app and start the app locally
 ```bash
@@ -47,9 +48,10 @@ $ yarn start
 ## Running the server through docker
 1. Setup your credentials in docker-compose.yml
 
+```bash
 RAPID_API_KEY=
-
 API_KEY=
+```
 
 3. Run the below commands and the server will run in localhost:3000
 
